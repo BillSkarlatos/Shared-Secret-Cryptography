@@ -1,5 +1,5 @@
 # Importing our created files into main so that we can use the functions we created. 
-from key_handling import generateKeys, checkIfEmpty, extendKey
+from key_handling import *
 from XOR_Gate import XOR
 import sys
 

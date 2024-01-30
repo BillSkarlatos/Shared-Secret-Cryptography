@@ -1,5 +1,6 @@
 # This will generate 5-bit random keys to only be used once.
 import random
+
 def generateKeys():
     Num=int(input("How many new keys do you want to generate? (type a negative Number to erase all the previous keys) "))
     while (Num<0):
@@ -9,10 +10,12 @@ def generateKeys():
         x = len(f.readlines())
         print("Deleting ",x," keys ...")
         f.close()
+
         # We open and close the file using the "write" method, which overwrites the keys with nothing.  
         open("secret_book.txt", "w").close()
         # Since deleting the keys will make the encrypted messages unreadable, we delete them as well
         open("encrypted_messages.txt", "w").close()
+        
         # These lines are both for generating new keys after deletion and for error prevention.
         print("--- Please, now select a number over 0 ---")
         Num=int(input("How many new keys do you want to generate? "))
@@ -49,4 +52,5 @@ def extendKey(originalKey, length):
             counter=0
         else:
             counter+=1
+    return extendedKey
     
