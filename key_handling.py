@@ -11,6 +11,8 @@ def generateKeys():
         f.close()
         # We open and close the file using the "write" method, which overwrites the keys with nothing.  
         open("secret_book.txt", "w").close()
+        # Since deleting the keys will make the encrypted messages unreadable, we delete them as well
+        open("encrypted_messages.txt", "w").close()
         # These lines are both for generating new keys after deletion and for error prevention.
         print("--- Please, now select a number over 0 ---")
         Num=int(input("How many new keys do you want to generate? "))
@@ -25,3 +27,26 @@ def generateKeys():
         f.write(str(key))
         f.write("\n")
     f.close()
+
+def checkIfEmpty():
+    f=open("secret_book.txt", "r")
+    if (len(f.readlines())==0):
+        print("It looks like there are no available keys at the moment, you have to generate more before proceeding")
+        f.close()
+        generateKeys()
+    else: 
+        f.close()
+
+def extendKey(originalKey, length):
+    # This is a deviation from the original algorithmic logic because when you have capped key length,
+    # the maximum amount of keys that you will be able to produce is 2^{max_length}, but, since theoretically no one
+    # has access to the keys or the information about them, it should still be impossible to establish the extended pattern.
+    counter=0
+    extendedKey=[]
+    for i in range(0,length):
+        extendedKey.append(originalKey[counter])
+        if (counter+1>=len(originalKey)):
+            counter=0
+        else:
+            counter+=1
+    
