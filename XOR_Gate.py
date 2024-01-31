@@ -1,4 +1,12 @@
-def XOR(bit_1, bit_2):
-    if (bit_1==bit_2==0 or bit_1==bit_2==1):
-        return 0
-    return 1
+def xor_gate(message, key):
+    # Convert message and key to binary strings
+    binary_msg = ''.join(format(ord(char), '08b') for char in message)
+    binary_key = ''.join(format(ord(char), '08b') for char in key)
+
+    # Apply XOR operation for each bit
+    result_binary = ''.join('1' if a != b else '0' for a, b in zip(binary_msg, binary_key))
+
+    # Convert binary result back to string
+    result_string = ''.join(chr(int(result_binary[i:i+8], 2)) for i in range(0, len(result_binary), 8))
+
+    return result_string
