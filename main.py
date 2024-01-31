@@ -21,9 +21,7 @@ def option(choice):
                         if current_line_number == keyIndex:
                             originalKey=''.join(line.strip().replace('[', '').replace(']', '').split(', '))
                             break
-                print(originalKey)
                 key=extendKey(originalKey,newKeyLength)
-                print(key)
                 keyIndex+=1
                 c=0
                 for i in range (0,len(binaryMsg)):
@@ -32,15 +30,35 @@ def option(choice):
                         newBitSeq+=str(XOR(int(binaryMsg[i][j]),int(key[c])))
                         c+=1
                     binaryMsg[i]=int(newBitSeq)
-                result=toString(binaryMsg)
-                print("Message ",keyIndex,":",result)
-
+                message=toString(binaryMsg)
+                print("Message ",keyIndex,":",message)
+            f.close()   
+        else:
+            newChoice=int(input("No messsages and keys found, would you like to generate keys?\n Press [1 for Yes] or anything other for Exit. "))
+            if (newChoice==1):
+                option(3)
+            else:
+                option(4)
+    elif (choice==3):
+        generateKeys()
+        newChoice=int(input("Would you like to encrypt a new message now?\nPress [1 for Yes] or anything else for Exit. "))
+        if (newChoice==1):
+            option(2)
+        else:
+            option(4)
+    elif(choice==4):
+        print("Thanks for trying out my Project!")
+        return
+    else: #choice==2
+        
+    
+            
 
 def main():
     choice=-1
-    while (choice<0 or choice>4):
+    while (choice<0 or choice>5):
         sys.stdout.flush()
-        choice=int(input("Please choose one of the following options: \nDecrypt all messages: 1\nEncrypt new message: 2\nGenerate new, or delete existing keys: 3\nYour choice: "))
+        choice=int(input("Please choose one of the following options: \nDecrypt all messages: 1\nEncrypt new message: 2\nGenerate new, or delete existing keys: 3\nExit Program: 4\nYour choice: "))
     option(choice)
                 
 
