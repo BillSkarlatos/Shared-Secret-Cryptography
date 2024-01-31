@@ -3,7 +3,6 @@ from key_handling import *
 from XOR_Gate import XOR
 from messages_conversions import *
 import sys
-import linecache
 
 def option(choice):
     if (choice==1):
@@ -17,13 +16,24 @@ def option(choice):
                 for i in range(0,len(binaryMsg)):
                     binaryMsg[i]=str(binaryMsg[i])
                     newKeyLength+=len(binaryMsg[i])
-                key=extendKey(linecache.getline("secret_book.txt", keyIndex),newKeyLength)
+                with open("secret_book.txt", 'r') as file:
+                    for current_line_number, line in enumerate(file, start=0):
+                        if current_line_number == keyIndex:
+                            originalKey=''.join(line.strip().replace('[', '').replace(']', '').split(', '))
+                            break
+                print(originalKey)
+                key=extendKey(originalKey,newKeyLength)
+                print(key)
                 keyIndex+=1
                 c=0
                 for i in range (0,len(binaryMsg)):
                     newBitSeq=''
                     for j in range(0,len(binaryMsg[i])):
                         newBitSeq+=str(XOR(int(binaryMsg[i][j]),int(key[c])))
+                        c+=1
+                    binaryMsg[i]=int(newBitSeq)
+                result=toString(binaryMsg)
+                print("Message ",keyIndex,":",result)
 
 
 def main():

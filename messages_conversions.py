@@ -37,10 +37,3 @@ def toString(a):
     for x in l:
         m=m+chr(x)
     return m
-
-# Applying XOR for every bit of the key and the message. The arguments and the return value is a list of binary values.
-def convert(message,key):
-    result=[]
-    for i in range(0,len(message)):
-        result.append(XOR(message[i],key[i]))
-    return result
